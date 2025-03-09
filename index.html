@@ -84,112 +84,292 @@
           <h2>Pi Network (PI) Price</h2>
           <div class="pi-price" id="piPrice">Loading...</div>
           <p>Last updated: <span id="lastUpdated">N/A</span></p>
+          <canvas id="piChart"></canvas> <!-- Graph goes here -->
           <p>Join Pi Network with my referral code: <strong>Dasla003</strong></p>
       </div>
-          
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Fetch current price
+    async function fetchPiPrice() {
+        try {
+            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd');
+            const data = await response.json();
+            const price = data['pi-network'].usd;
+            document.getElementById('piPrice').textContent = `$${price.toFixed(2)} USD`;
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+        } catch (error) {
+            document.getElementById('piPrice').textContent = 'Error fetching price';
+            console.error('Error:', error);
+        }
+    }
 
-      <script>
-        async function fetchPiPrice() {
-            try {
-                // Using CoinGecko API to fetch Pi Network price
-                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd');
+    // Fetch historical price data for graph (last 7 days)
+    async function fetchPiChartData() {
+        try {
+          const response = await fetch('https://api.coingecko.com/api/v3/coins/pi-network/market_chart?vs_currency=usd&days=7&interval=daily');
                 const data = await response.json();
-                const price = data['pi-network'].usd;
-                document.getElementById('piPrice').textContent = `$${price.toFixed(2)} USD`;
-                document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+                const prices = data.prices.map(price => price[1]); // Price values
+                const labels = data.prices.map(price => {
+                    const date = new Date(price[0]);
+                    return date.toLocaleDateString(); // Date labels
+                });
+
+                // Create the chart
+                const ctx = document.getElementById('piChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                          label: 'PI Price (USD)',
+                            data: prices,
+                            borderColor: '#2ecc71',
+                            backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                            fill: true,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: { title: { display: true, text: 'Date' } },
+                            y: { title: { display: true, text: 'Price (USD)' } }
+                        },
+                        plugins: {
+                            legend: { display: true }
+                        }
+                    }
+                  });
             } catch (error) {
-                document.getElementById('piPrice').textContent = 'Error fetching price';
-                console.error('Error:', error);
+                console.error('Error fetching chart data:', error);
             }
         }
 
-        // Fetch price on page load
+        // Fetch data on page load
         fetchPiPrice();
+        fetchPiChartData();
         // Update price every 60 seconds (optional)
         setInterval(fetchPiPrice, 60000);
     </script>
 
 <div class="wld-price-container">
-<h2>Worldcoin (WLD) Price</h2>
-<div class="wld-price" id="wldPrice">Loading...</div>
-<p>Last updated: <span id="lastUpdated">N/A</span></p>
-<p>Join Worldcoin with my referral: <strong>Dasla003</strong></p>
+  <h2>Worldcoin (WLD) Price</h2>
+  <div class="wld-price" id="wldPrice">Loading...</div>
+  <p>Last updated: <span id="lastUpdated">N/A</span></p>
+  <canvas id="wldChart"></canvas> <!-- Graph goes here -->
+  <p>Join Worldcoin with my referral: <strong>Dasla003</strong></p>
 </div>
+
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  async function fetchWldPrice() {
-      try {
-          // Using CoinGecko API to fetch Worldcoin price
-          const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=worldcoin-wld&vs_currencies=usd');
-          const data = await response.json();
-          const price = data['worldcoin-wld'].usd;
-          document.getElementById('wldPrice').textContent = `$${price.toFixed(2)} USD`;
-          document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
-      } catch (error) {
-          document.getElementById('wldPrice').textContent = 'Error fetching price';
-          console.error('Error:', error);
-      }
-  }
+    // Fetch current price
+    async function fetchWldPrice() {
+        try {
+            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=worldcoin-wld&vs_currencies=usd');
+            const data = await response.json();
+            const price = data['worldcoin-wld'].usd;
+            document.getElementById('wldPrice').textContent = `$${price.toFixed(2)} USD`;
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+        } catch (error) {
+            document.getElementById('wldPrice').textContent = 'Error fetching price';
+            console.error('Error:', error);
+        }
+    }
 
-  // Fetch price on page load
-  fetchWldPrice();
-  // Update price every 60 seconds (optional)
-  setInterval(fetchWldPrice, 60000);
-</script>
+    // Fetch historical price data for graph (last 7 days)
+    async function fetchWldChartData() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/coins/worldcoin-wld/market_chart?vs_currency=usd&days=7&interval=daily');
+                const data = await response.json();
+                const prices = data.prices.map(price => price[1]); // Price values
+                const labels = data.prices.map(price => {
+                    const date = new Date(price[0]);
+                    return date.toLocaleDateString(); // Date labels
+                });
 
+                // Create the chart
+                const ctx = document.getElementById('wldChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                          label: 'WLD Price (USD)',
+                            data: prices,
+                            borderColor: '#3498db',
+                            backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                            fill: true,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: { title: { display: true, text: 'Date' } },
+                            y: { title: { display: true, text: 'Price (USD)' } }
+                        },
+                        plugins: {
+                            legend: { display: true }
+                        }
+                    }
+                });
+              } catch (error) {
+                console.error('Error fetching chart data:', error);
+            }
+        }
+
+        // Fetch data on page load
+        fetchWldPrice();
+        fetchWldChartData();
+        // Update price every 60 seconds (optional)
+        setInterval(fetchWldPrice, 60000);
+    </script>
 <div class="trump-price-container">
   <h2>Official Trump (TRUMP) Price</h2>
   <div class="trump-price" id="trumpPrice">Loading...</div>
   <p>Last updated: <span id="lastUpdated">N/A</span></p>
-  <p>Support Trump with my code: <strong>N/A</strong></p>
+  <canvas id="trumpChart"></canvas> <!-- Graph goes here -->
+  <p>Support Trump with my code: <strong>Dasla003</strong></p>
 </div>
 
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  async function fetchTrumpPrice() {
-      try {
-          // Using CoinGecko API to fetch Official Trump price
-          const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=official-trump&vs_currencies=usd');
-          const data = await response.json();
-          const price = data['official-trump'].usd;
-          document.getElementById('trumpPrice').textContent = `$${price.toFixed(2)} USD`;
-          document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
-      } catch (error) {
-          document.getElementById('trumpPrice').textContent = 'Error fetching price';
-          console.error('Error:', error);
-      }
-  }
+    // Fetch current price
+    async function fetchTrumpPrice() {
+        try {
+            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=official-trump&vs_currencies=usd');
+            const data = await response.json();
+            const price = data['official-trump'].usd;
+            document.getElementById('trumpPrice').textContent = `$${price.toFixed(2)} USD`;
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+        } catch (error) {
+            document.getElementById('trumpPrice').textContent = 'Error fetching price';
+            console.error('Error:', error);
+        }
+    }
+    // Fetch historical price data for graph (last 7 days)
+    async function fetchTrumpChartData() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/coins/official-trump/market_chart?vs_currency=usd&days=7&interval=daily');
+                const data = await response.json();
+                const prices = data.prices.map(price => price[1]); // Price values
+                const labels = data.prices.map(price => {
+                    const date = new Date(price[0]);
+                    return date.toLocaleDateString(); // Date labels
+                });
+              });
 
-  // Fetch price on page load
-  fetchTrumpPrice();
-  // Update price every 60 seconds (optional)
-  setInterval(fetchTrumpPrice, 60000);
+// Create the chart
+const ctx = document.getElementById('trumpChart').getContext('2d');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'TRUMP Price (USD)',
+            data: prices,
+            borderColor: '#e74c3c',
+            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+            fill: true,
+            tension: 0.1
+        }]
+    },
+    options: {
+                        scales: {
+                            x: { title: { display: true, text: 'Date' } },
+                            y: { title: { display: true, text: 'Price (USD)' } }
+                        },
+                        plugins: {
+                            legend: { display: true }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching chart data:', error);
+            }
+        }
+        // Fetch data on page load
+        fetchTrumpPrice();
+        fetchTrumpChartData();
+        // Update price every 60 seconds (optional)
+        setInterval(fetchTrumpPrice, 60000);
     </script>
 
 <div class="doge-price-container">
   <h2>Dogecoin (DOGE) Price</h2>
   <div class="doge-price" id="dogePrice">Loading...</div>
   <p>Last updated: <span id="lastUpdated">N/A</span></p>
+  <canvas id="dogeChart"></canvas> <!-- Graph goes here -->
   <p>Join the Doge community: <strong>Dasla003</strong></p>
 </div>
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  async function fetchDogePrice() {
-      try {
-          // Using CoinGecko API to fetch Dogecoin price
-          const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=usd');
-          const data = await response.json();
-          const price = data['dogecoin'].usd;
-          document.getElementById('dogePrice').textContent = `$${price.toFixed(4)} USD`;
-          document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
-      } catch (error) {
-          document.getElementById('dogePrice').textContent = 'Error fetching price';
-          console.error('Error:', error);
-      }
-  }
+    // Fetch current price
+    async function fetchDogePrice() {
+        try {
+            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=usd');
+            const data = await response.json();
+            const price = data['dogecoin'].usd;
+            document.getElementById('dogePrice').textContent = `$${price.toFixed(4)} USD`;
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+        } catch (error) {
+            document.getElementById('dogePrice').textContent = 'Error fetching price';
+            console.error('Error:', error);
+        }
+    }
 
-  // Fetch price on page load
-  fetchDogePrice();
-  // Update price every 60 seconds (optional)
-  setInterval(fetchDogePrice, 60000);
-</script>
+    // Fetch historical price data for graph (last 7 days)
+
+async function fetchDogeChartData() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/coins/dogecoin/market_chart?vs_currency=usd&days=7&interval=daily');
+                const data = await response.json();
+                const prices = data.prices.map(price => price[1]); // Price values
+                const labels = data.prices.map(price => {
+                    const date = new Date(price[0]);
+                    return date.toLocaleDateString(); // Date labels
+                });
+
+                // Create the chart
+                const ctx = document.getElementById('dogeChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'DOGE Price (USD)',
+                            data: prices,
+                            borderColor: '#f1c40f',
+                            backgroundColor: 'rgba(241, 196, 15, 0.2)',
+                            fill: true,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: { title: { display: true, text: 'Date' } },
+                            y: { title: { display: true, text: 'Price (USD)' } }
+                        },
+                        plugins: {
+                            legend: { display: true }
+                          }
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching chart data:', error);
+            }
+        }
+
+        // Fetch data on page load
+        fetchDogePrice();
+        fetchDogeChartData();
+        // Update price every 60 seconds (optional)
+        setInterval(fetchDogePrice, 60000);
+    </script>
+                            
+
          <a href="https://www.binance.com">Binance</a>
         </body>
 </html>
