@@ -35,7 +35,7 @@
             }
         }
         h2{
-          color: white;
+          color:white;
         }
         h3{
           color: white;
@@ -79,7 +79,117 @@
           <div>5.XRP.</div>
           <div>6.WORLD COIN</div>
          </div>
+
+         <div class="pi-price-container">
+          <h2>Pi Network (PI) Price</h2>
+          <div class="pi-price" id="piPrice">Loading...</div>
+          <p>Last updated: <span id="lastUpdated">N/A</span></p>
+          <p>Join Pi Network with my referral code: <strong>Dasla003</strong></p>
+      </div>
           
+
+      <script>
+        async function fetchPiPrice() {
+            try {
+                // Using CoinGecko API to fetch Pi Network price
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pi-network&vs_currencies=usd');
+                const data = await response.json();
+                const price = data['pi-network'].usd;
+                document.getElementById('piPrice').textContent = `$${price.toFixed(2)} USD`;
+                document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+            } catch (error) {
+                document.getElementById('piPrice').textContent = 'Error fetching price';
+                console.error('Error:', error);
+            }
+        }
+
+        // Fetch price on page load
+        fetchPiPrice();
+        // Update price every 60 seconds (optional)
+        setInterval(fetchPiPrice, 60000);
+    </script>
+
+<div class="wld-price-container">
+<h2>Worldcoin (WLD) Price</h2>
+<div class="wld-price" id="wldPrice">Loading...</div>
+<p>Last updated: <span id="lastUpdated">N/A</span></p>
+<p>Join Worldcoin with my referral: <strong>Dasla003</strong></p>
+</div>
+<script>
+  async function fetchWldPrice() {
+      try {
+          // Using CoinGecko API to fetch Worldcoin price
+          const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=worldcoin-wld&vs_currencies=usd');
+          const data = await response.json();
+          const price = data['worldcoin-wld'].usd;
+          document.getElementById('wldPrice').textContent = `$${price.toFixed(2)} USD`;
+          document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+      } catch (error) {
+          document.getElementById('wldPrice').textContent = 'Error fetching price';
+          console.error('Error:', error);
+      }
+  }
+
+  // Fetch price on page load
+  fetchWldPrice();
+  // Update price every 60 seconds (optional)
+  setInterval(fetchWldPrice, 60000);
+</script>
+
+<div class="trump-price-container">
+  <h2>Official Trump (TRUMP) Price</h2>
+  <div class="trump-price" id="trumpPrice">Loading...</div>
+  <p>Last updated: <span id="lastUpdated">N/A</span></p>
+  <p>Support Trump with my code: <strong>N/A</strong></p>
+</div>
+
+<script>
+  async function fetchTrumpPrice() {
+      try {
+          // Using CoinGecko API to fetch Official Trump price
+          const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=official-trump&vs_currencies=usd');
+          const data = await response.json();
+          const price = data['official-trump'].usd;
+          document.getElementById('trumpPrice').textContent = `$${price.toFixed(2)} USD`;
+          document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+      } catch (error) {
+          document.getElementById('trumpPrice').textContent = 'Error fetching price';
+          console.error('Error:', error);
+      }
+  }
+
+  // Fetch price on page load
+  fetchTrumpPrice();
+  // Update price every 60 seconds (optional)
+  setInterval(fetchTrumpPrice, 60000);
+    </script>
+
+<div class="doge-price-container">
+  <h2>Dogecoin (DOGE) Price</h2>
+  <div class="doge-price" id="dogePrice">Loading...</div>
+  <p>Last updated: <span id="lastUpdated">N/A</span></p>
+  <p>Join the Doge community: <strong>Dasla003</strong></p>
+</div>
+<script>
+  async function fetchDogePrice() {
+      try {
+          // Using CoinGecko API to fetch Dogecoin price
+          const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=usd');
+          const data = await response.json();
+          const price = data['dogecoin'].usd;
+          document.getElementById('dogePrice').textContent = `$${price.toFixed(4)} USD`;
+          document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+      } catch (error) {
+          document.getElementById('dogePrice').textContent = 'Error fetching price';
+          console.error('Error:', error);
+      }
+  }
+
+  // Fetch price on page load
+  fetchDogePrice();
+  // Update price every 60 seconds (optional)
+  setInterval(fetchDogePrice, 60000);
+</script>
          <a href="https://www.binance.com">Binance</a>
         </body>
 </html>
