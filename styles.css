@@ -1,0 +1,258 @@
+/* Reset and General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #1a1a1a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #00d4ff;
+}
+
+/* Phone Styling */
+.phone {
+    width: 340px;
+    height: 640px;
+    background: #000;
+    border-radius: 50px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+    padding: 20px;
+}
+
+/* Bezel Details */
+.bezel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.power-button {
+    position: absolute;
+    right: -4px;
+    top: 150px;
+    width: 4px;
+    height: 60px;
+    background: #333;
+    border-radius: 0 4px 4px 0;
+}
+
+.volume-buttons {
+    position: absolute;
+    left: -4px;
+    top: 100px;
+    width: 4px;
+    height: 100px;
+    background: #333;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Screen Styling */
+.screen {
+    width: 100%;
+    height: 100%;
+    background: #111;
+    border-radius: 30px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Status Bar */
+.status-bar {
+    font-size: 0.9em;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    background: #222;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 10px;
+}
+
+/* Graph Section */
+.graph-section {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+    color: #00ffcc;
+}
+
+/* Graph Container */
+.graph {
+    width: 100%;
+    height: 130px;
+    background: #222;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.graph:hover {
+    transform: scale(1.02);
+}
+
+/* Graph Grid */
+.graph::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 20px,
+        transparent 20px,
+        transparent 40px
+    ), repeating-linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 40px,
+        transparent 40px,
+        transparent 80px
+    );
+}
+
+/* Graph Lines */
+.line {
+    position: absolute;
+    height: 2px;
+    background: transparent;
+}
+
+.crypto-graph .line-segment-1 {
+    width: 40%;
+    left: 0;
+    background: #ff9500;
+    animation: cryptoMove1 4s infinite ease-in-out;
+}
+
+.crypto-graph .line-segment-2 {
+    width: 30%;
+    left: 40%;
+    background: #ff9500;
+    animation: cryptoMove2 5s infinite ease-in-out;
+}
+
+.crypto-graph .line-segment-3 {
+    width: 30%;
+    left: 70%;
+    background: #ff9500;
+    animation: cryptoMove3 6s infinite ease-in-out;
+}
+
+.forex-graph .line-segment-1 {
+    width: 40%;
+    left: 0;
+    background: #00cc00;
+    animation: forexMove1 4s infinite ease-in-out;
+}
+
+.forex-graph .line-segment-2 {
+    width: 30%;
+    left: 40%;
+    background: #00cc00;
+    animation: forexMove2 5s infinite ease-in-out;
+}
+
+.forex-graph .line-segment-3 {
+    width: 30%;
+    left: 70%;
+    background: #00cc00;
+    animation: forexMove3 6s infinite ease-in-out;
+}
+
+/* Animations */
+@keyframes cryptoMove1 {
+    0% { transform: translateY(50px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(50px); }
+}
+
+@keyframes cryptoMove2 {
+    0% { transform: translateY(-10px); }
+    50% { transform: translateY(30px); }
+    100% { transform: translateY(-10px); }
+}
+
+@keyframes cryptoMove3 {
+    0% { transform: translateY(20px); }
+    50% { transform: translateY(-30px); }
+    100% { transform: translateY(20px); }
+}
+
+@keyframes forexMove1 {
+    0% { transform: translateY(-40px); }
+    50% { transform: translateY(20px); }
+    100% { transform: translateY(-40px); }
+}
+
+@keyframes forexMove2 {
+    0% { transform: translateY(30px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(30px); }
+}
+
+@keyframes forexMove3 {
+    0% { transform: translateY(-20px); }
+    50% { transform: translateY(40px); }
+    100% { transform: translateY(-20px); }
+}
+
+/* Graph Label */
+.graph-label {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 0.9em;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+/* Zoom Button */
+.zoom-btn {
+    margin-top: 10px;
+    padding: 8px 20px;
+    background: #00d4ff;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.zoom-btn:hover {
+    background: #00b0d4;
+    transform: scale(1.05);
+}
+
+.zoom-btn:active {
+    transform: scale(0.95);
+}
